@@ -6,6 +6,7 @@ import {ClerkProvider} from '@clerk/nextjs'
 // THEME
 import {dark} from  '@clerk/themes'
 import { ThemeProvider } from "@/components/theme-provider";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
