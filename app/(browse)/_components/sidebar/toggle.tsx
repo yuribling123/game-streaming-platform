@@ -4,6 +4,7 @@ import { useSidebar } from "@/store/use-sidebar";
 import { Button } from "@/components/ui/button";
 import { ArrowLeftFromLine, ArrowRightFromLine } from "lucide-react";
 import { Hint } from "@/components/ui/hint";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const Toggle = () => {
     const {
@@ -33,3 +34,15 @@ export const Toggle = () => {
     )
         ;
 };
+
+// for hydration error
+export const ToggleSkeleton = () => {
+    return (
+      <div className="p-3 pl-6 mb-2 hidden lg:flex items-center justify-between w-full">
+        <Skeleton className="h-6 w-[100px]" />
+        <Skeleton className="h-6 w-6" />
+      </div>
+    );
+  };
+  
+  
