@@ -24,7 +24,27 @@ imageUrl String @db.Text
 externalUserId String @unique 
 
 bio String? @db.Text
+// following: an array of follow records
+following Follow[] @relation("Following")
+followedBy Follow[] @relation("Followedby")
 
 createdAt DateTime @default (now()) 
 updatedAt DateTime @updatedAt
 }
+
+//manage follow relationship
+model Follow{
+  id String @id @default(uuid())
+  followerId String
+  followingId String
+  follower User @relation(name:"Following", fields:[followerId ], references:[id],onDelete:Cascade)
+  following User @relation(name:"Followedby", fields:[followingId ], references:[id],onDelete:Cascade)
+  //cascade: when a parent record is deleted, all related child records should also be automatically deleted
+
+  createdAt DateTime @default (now()) 
+  updatedAt DateTime @updatedAt
+
+  @@unique([followerId,followingId]) //Ensures each pair of followerId and followingId is unique
+  @@index([followerId ]) // Creates an index on the followingId field.
+  @@index([followingId ]) 
+} 
