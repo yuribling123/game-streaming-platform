@@ -2,6 +2,26 @@
 import { db } from "./db";
 import { getSelf } from "./auth-service";
 
+export const getFollowedUsers = async () => {
+    try {
+        const self = await getSelf();
+
+        const followedUsers = db.follow.findMany({
+            where: {
+                followerId: self.id,
+            },
+            include: {
+                following: true,
+            },
+        });
+
+        return followedUsers;
+    } catch {
+        return [];
+    }
+}
+
+
 export const isFollowingUser = async (id: string) => {
     try {
         const self = await getSelf();
@@ -83,11 +103,11 @@ export const unfollowUser = async (id: string) => {
     if (!otherUser) {
         throw new Error("User not found");
     }
-    
+
     if (otherUser.id === self.id) {
         throw new Error("Cannot unfollow yourself");
     }
-    
+
     const existingFollow = await db.follow.findFirst({
         where: {
             followerId: self.id,
@@ -104,8 +124,8 @@ export const unfollowUser = async (id: string) => {
             id: existingFollow.id,
         },
         // return this data after deleted
-        include:{
-            following:true,
+        include: {
+            following: true,
         }
     });
 
