@@ -6,6 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures =  ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
@@ -30,6 +31,8 @@ followedBy Follow[] @relation("Followedby")
 
 createdAt DateTime @default (now()) 
 updatedAt DateTime @updatedAt
+
+stream Stream?
 }
 
 //manage follow relationship
@@ -48,3 +51,25 @@ model Follow{
   @@index([followerId ]) // Creates an index on the followingId field.
   @@index([followingId ]) 
 } 
+
+model Stream {
+  id                       String   @id @default(uuid())
+  name                     String   @db.Text
+  thumbnailUrl             String?  @db.Text
+
+  ingressId                String?  @unique
+  serverUrl                String?  @db.Text
+  streamKey                String?  @db.Text
+
+  isLive                   Boolean  @default(false)
+  isChatEnabled            Boolean  @default(true)
+  isChatDelayed            Boolean  @default(false)
+  isChatFollowersOnly      Boolean  @default(false)
+
+  userId                   String   @unique
+  user                     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([ingressId])
+  @@fulltext([name])
+}
