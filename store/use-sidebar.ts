@@ -1,5 +1,4 @@
 /* access and modify sidebar state */
-import { Sidebar } from "@/app/(browse)/_components/sidebar";
 import { create } from "zustand";
 
 // manage the state of sidebar:  methods to expand and collapse it
