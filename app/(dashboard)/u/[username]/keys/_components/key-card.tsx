@@ -13,14 +13,14 @@ export const KeyCard = ({ value }: KeyCardProps) => {
 
     return (
         <div className="rounded-xl p-6 bg-muted" >
-            <div className="flex items-start gap-x-10">
+            <div className="flex items-center gap-x-10">
                 <p className="shrink-0 font-semibold"> Stream Key </p>
-                <div className="space-y-2 w-full">
+                <div className=" w-full">
                     <div className="w-full flex items-center gap-x-2">
-                        <Input value={value || ""}  placeholder="Stream key" type={show ? "text" :"password"} />
+                        <Input value={value || ""}  placeholder="Stream key" type={show ? "text" :"password"} readOnly/>
                         <CopyButton></CopyButton>
                     </div>
-                    <Button size="sm" variant="link" onClick={()=>setShow(!show)}>
+                    <Button className="pt-4" size="sm" variant="link" onClick={()=>setShow(!show)}>
                         {show ? "Hide" : "Show"}
                     </Button>
                 </div>

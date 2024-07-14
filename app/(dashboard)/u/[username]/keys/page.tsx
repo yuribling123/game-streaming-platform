@@ -28,7 +28,7 @@ const KeysPage = async () => {
 
 
             <UrlCard value={stream.serverUrl}></UrlCard>
-            <KeyCard value="123"></KeyCard>
+            <KeyCard value={stream.streamKey}></KeyCard>
             
          </div>
 
