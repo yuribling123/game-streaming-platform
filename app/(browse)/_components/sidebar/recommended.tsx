@@ -6,9 +6,9 @@ import { UserItem } from "./user-item";
 import { UserItemSkeleton } from "./user-item";
 
 interface RecommendedProps {
-    data: (User & {stream : Stream | null})[]  // Replace `any` with the appropriate type for your data if known
+    data: (User & {stream:{isLive: boolean }| null;})[]  // Replace `any` with the appropriate type for your data if known
 }
-
+ 
 export const Recommended = ({ data }: RecommendedProps) => {
     const { collapsed } = useSidebar((state) => state);
     const showLabel = !collapsed && data.length > 0;

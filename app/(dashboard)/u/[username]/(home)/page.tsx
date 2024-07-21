@@ -1,7 +1,27 @@
-const CreaterPage = () => {
+import { StreamPlayer } from "@/components/stream-player";
+import { isFollowingUser } from "@/lib/follow-service";
+import { getUserByUsername } from "@/lib/user-service";
+import { currentUser } from "@clerk/nextjs/server";
+
+//parse the URL and provide the username parameter to thiscomponent.
+interface CreaterPageProps {
+    params:{
+        username:string;
+    }
+}
+
+//extract username from props, use that to grab users
+const CreaterPage = async ({params}:CreaterPageProps) => {
+    const externalUser = await currentUser();
+    const user = await getUserByUsername(params.username);
+
+    if (!user || user.externalUserId !== externalUser?.id || !(user.stream)) {
+        throw new Error("Unauthorized");
+    }
+
     return (
-    <div className="flex flex-col items-center justify-center h-screen gap-y-4 "> 
-        <p>creater page</p>
+    <div className="h-full"> 
+       <StreamPlayer user={user} stream={user.stream} isFollowing={true}></StreamPlayer>
     </div>  );
 }
  

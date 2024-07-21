@@ -5,7 +5,7 @@ import { UserItem, UserItemSkeleton } from "./user-item";
 
 // Define the props for the Following component
 interface FollowingProps {
-  data: (Follow & { following: User & {stream: Stream} })[];
+  data: (Follow & { following: User & {stream: {isLive: boolean} | null;},})[];
 }
 
 export const Following = ({ data }: FollowingProps) => {
