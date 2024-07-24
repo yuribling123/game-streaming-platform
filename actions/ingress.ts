@@ -51,12 +51,14 @@ export const createIngress = async (ingressType: IngressInput) => {
     if (ingressType === IngressInput.WHIP_INPUT) {
         options.enableTranscoding = false; // Bypass transcoding
     } else {
-      // to be done 
-       // Using a video preset
-    //    options.video = {
-    //     source: TrackSource.CAMERA,
-    //     preset: IngressVideoEncodingPreset.H264_1080P_30FPS_3_LAYERS
-    // };
+        // options.video = {
+        //     source: TrackSource.CAMERA,
+        //     preset: IngressVideoEncodingPreset.H264_1080P_30FPS_3_LAYERS,
+        // };
+        // options.audio = {
+        //     source: TrackSource.MICROPHONE,
+        //     preset: IngressAudioEncodingPreset.OPUS_STEREO_96KBPS,
+        // };
 
       
     }

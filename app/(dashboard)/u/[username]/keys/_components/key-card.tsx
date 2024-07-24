@@ -18,7 +18,7 @@ export const KeyCard = ({ value }: KeyCardProps) => {
                 <div className=" w-full">
                     <div className="w-full flex items-center gap-x-2">
                         <Input value={value || ""}  placeholder="Stream key" type={show ? "text" :"password"} readOnly/>
-                        <CopyButton></CopyButton>
+                        <CopyButton value={value || ""}></CopyButton>
                     </div>
                     <Button className="pt-4" size="sm" variant="link" onClick={()=>setShow(!show)}>
                         {show ? "Hide" : "Show"}

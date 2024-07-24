@@ -13,6 +13,7 @@ export const CopyButton = ({ value }: CopyButtonProps) => {
     const onCopy = () => {
         if (!value) { return };
         setIsCopied(true);
+        navigator.clipboard.writeText(value);
         // reset it after 1 second
         setTimeout(() => {
             setIsCopied(false);

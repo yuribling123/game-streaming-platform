@@ -48,20 +48,20 @@ export const   createViewerToken = async (hostIdentity: string) => {
   const tokenJwt = token.toJwt();
 
   // Decode the JWT token to modify the payload
-  const decodedPayload = jwtDecode(await tokenJwt) as any;
+  //const decodedPayload = jwtDecode(await tokenJwt) as any;
   
   // Add jti to the payload if not present
-  if (!decodedPayload.jti) {
-      decodedPayload.jti = v4();
-  }
+//   if (!decodedPayload.jti) {
+//       decodedPayload.jti = v4();
+//   }
 
   //Re-encode the JWT with the updated payload
-  const base64Header = Buffer.from(JSON.stringify(JSON.parse(Buffer.from((await tokenJwt).split('.')[0], 'base64').toString())), 'utf8').toString('base64');
-  const base64Payload = Buffer.from(JSON.stringify(decodedPayload), 'utf8').toString('base64');
-  const signature = (await tokenJwt).split('.')[2];
+//const base64Header = Buffer.from(JSON.stringify(JSON.parse(Buffer.from((await tokenJwt).split('.')[0], 'base64').toString())), 'utf8').toString('base64');
+//const base64Payload = Buffer.from(JSON.stringify(decodedPayload), 'utf8').toString('base64');
+//const signature = (await tokenJwt).split('.')[2];
 
-  const TokenJwt = `${base64Header}.${base64Payload}.${signature}`;
+  //const TokenJwt = `${base64Header}.${base64Payload}.${signature}`;
   
 
-  return await Promise.resolve(TokenJwt);
+  return await Promise.resolve(tokenJwt);
 };
