@@ -39,9 +39,9 @@ export const  Video: React.FC<VideoProps> = ({ hostName, hostIdentity }) => {
 
     return (
         <div className="aspect-video border-b border-gray-300 group relative">
-            <p>Video</p>
-            <p>Host Name: {hostName}</p>
-            <p>Host Identity: {hostIdentity}</p>
+     
+            {/* <p> {hostName}'s chat room</p>
+            <p>identity: {hostIdentity}</p> */}
             {content}
         </div>
     );
