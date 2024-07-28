@@ -1,6 +1,6 @@
 "use-client"
 
-import { useTracks } from "@livekit/components-react/hooks";
+import { useTracks } from "@livekit/components-react";
 import { Participant, Track } from "livekit-client";
 import { useEffect, useRef, useState } from "react";
 import { FullscreenControl } from "./fullscreen-control";
@@ -19,6 +19,18 @@ export const LiveVideo = ({ participant }: LiveVideoProps) => {
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [volume, setVolume] = useState(0);
 
+    // useTracks to get the camera and microphone tracks, filters the tracks to get
+    // those that match the participant's identity and then attaches the video track to a reference if it exists.
+    useTracks([Track.Source.Camera, Track.Source.Microphone])
+        .filter((track) => track.participant.identity === participant.identity)
+        .forEach((track) => {
+            if (videoRef.current) {
+                track.publication.track?.attach(videoRef.current);
+            }
+        });
+
+
+
     const onVolumeChange = (value: number) => {
         setVolume(+value);
         if (videoRef?.current) {
@@ -28,16 +40,24 @@ export const LiveVideo = ({ participant }: LiveVideoProps) => {
     };
 
     const toggleMute = () => {
-        const isMuted = volume === 0;
-        setVolume(isMuted ? 50 : 0)
-        if (videoRef?.current) {
-            videoRef.current.muted = !isMuted;
-            videoRef.current.volume = isMuted ? 0.5 : 0;
+        const isMuted = volume === 0; // no volume <=> isMuted true
+        console.log("ismuted property:"+isMuted)
+        const newVolume = isMuted ? 50 : 0; // isMuted true  <=> volume = 50
+        setVolume(newVolume);
 
+        console.log("stored volume"+volume)
+
+        if (videoRef.current) {
+            videoRef.current.muted = newVolume === 0;
+            videoRef.current.volume = newVolume * 0.01;
+
+            console.log("toggle muted:", videoRef.current.muted);
+            console.log("my volume:", videoRef.current.volume);
         }
     };
 
-    useEffect(() => { onVolumeChange(0); })
+
+    useEffect(() => { onVolumeChange(10); })
 
 
     const toggleFullscreen = () => {
@@ -60,15 +80,6 @@ export const LiveVideo = ({ participant }: LiveVideoProps) => {
 
 
 
-    // useTracks to get the camera and microphone tracks, filters the tracks to get
-    // those that match the participant's identity and then attaches the video track to a reference if it exists.
-    useTracks([Track.Source.Camera, Track.Source.Microphone])
-        .filter((track) => track.participant.identity === participant.identity)
-        .forEach((track) => {
-            if (videoRef.current) {
-                track.publication.track?.attach(videoRef.current);
-            }
-        });
 
 
     return (
@@ -79,11 +90,11 @@ export const LiveVideo = ({ participant }: LiveVideoProps) => {
 
                 <div className="absolute bottom-0 flex h-14 w-full items-center justify-between bg-gradient-to-r from-neutral-900 px-4">
                     <VolumeControl onChange={onVolumeChange} value={volume} onToggle={toggleMute}></VolumeControl>
-                    <FullscreenControl isFullscreen={isFullscreen}  onToggle={() => { toggleFullscreen }} />
+                    <FullscreenControl isFullscreen={isFullscreen} onToggle={() => { toggleFullscreen }} />
                 </div>
 
             </div>
-            
+
         </div>
 
     )
