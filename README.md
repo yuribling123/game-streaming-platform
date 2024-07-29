@@ -1,3 +1,5 @@
+This is a live streaming platform with real-time chat and the function to follow streamers
+
 ![alt text](image.png)
 
 ## Getting Started
