@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { useChatSidebar } from "@/store/use-chat-sidebar";
 import { cn } from "@/lib/utils";
 import { Chat } from "./chat";
+import { Header } from "./header";
 
 interface StreamPlayerProps {
     user: User & { stream: Stream | null };
@@ -21,7 +22,8 @@ export const StreamPlayer = ({ user, stream, isFollowing }: StreamPlayerProps) =
     const { token, name, identity } = useViewerToken(user.id);
     const { collapsed } = useChatSidebar((state) => state)
 
-    //console.log("token!"+token)
+
+
     const serverUrl = process.env.NEXT_PUBLIC_LIVEKIT_WS_URL
 
 
@@ -30,10 +32,10 @@ export const StreamPlayer = ({ user, stream, isFollowing }: StreamPlayerProps) =
     //if (!token || !name || !identity)
     if (!token || !name) {
         return (
-            <div>
-                not allowed to watch the stream
-
-            </div>
+            <div className="flex justify-center items-center h-screen ">
+            not allowed to watch the stream
+          </div>
+          
         );
     }
 
@@ -47,9 +49,17 @@ export const StreamPlayer = ({ user, stream, isFollowing }: StreamPlayerProps) =
 
             <div className="space-y-4 col-span-1 lg:col-span-2 xl:col-span-2 2xl:col-span-5 lg:overflow-y-auto hidden-scrollbar pb-10">
                 <Video hostName={user.username} hostIdentity={user.id} />
-            </div>
+                {/* video header */}
+                <Header
+                    hostName={user.username}
+                    hostIdentity={user.id}
+                    viewerIdentity={name}
+                    imageUrl={user.imageUrl}
+                    isFollowing={isFollowing}
+                    name={stream.name}
+                />
+            </div>  
 
-            {/* chat component */}
             <div
                 className={cn(
                     "col-span-1",
@@ -65,6 +75,9 @@ export const StreamPlayer = ({ user, stream, isFollowing }: StreamPlayerProps) =
                     isChatFollowersOnly={stream.isChatFollowersOnly}
                     isChatDelayed={stream.isChatDelayed}
                 />
+
+                {/* chat component */}
+
             </div>
 
 

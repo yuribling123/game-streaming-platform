@@ -24,7 +24,7 @@ export const useViewerToken = (hostIdentity: string) => {
 
                 if (identity) {
                     setIdentity(identity);
-                }
+                } 
 
                 if (name) {
                     setName(name);
