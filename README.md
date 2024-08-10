@@ -1,4 +1,4 @@
-##### Live streaming platform with real-time chat and different chat modes. Includes the follow/unfollow feature that allows users to manage their subscriptions
+##### Live streaming platform with real-time chat and different chat modes. Includes the follow/unfollow features to manage their subscriptions
 
 ---
 
