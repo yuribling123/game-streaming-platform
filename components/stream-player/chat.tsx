@@ -68,7 +68,7 @@ export const Chat = ({
 
 
     return (
-        <div className="flex flex-col bg-background border-b pt-0 h-[calc(100vh-80px)]">
+        <div className="flex flex-col bg-background border-b pt-0 h-[calc(100vh-80px)] ">
             <ChatHeader></ChatHeader>
             <ChatForm
 

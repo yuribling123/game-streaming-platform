@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import { JwtPayload, jwtDecode } from "jwt-decode";
 import { createViewerToken } from "@/actions/token";
 
+// Define your custom payload interface
+
+
 export const useViewerToken = (hostIdentity: string) => {
     const [token, setToken] = useState("");
     const [name, setName] = useState("");
@@ -15,12 +18,12 @@ export const useViewerToken = (hostIdentity: string) => {
                 const viewerToken = await createViewerToken(hostIdentity);
                 
                 setToken(viewerToken);
-                const decodedToken = jwtDecode(viewerToken) as JwtPayload & { name?: string };
+                const decodedToken = jwtDecode(viewerToken) as JwtPayload & { name?: string } & { identity?: string };
                 const name = decodedToken?.name;
-                const identity = decodedToken.jti;
+                const identity = decodedToken?.identity;
                 // console.log("token"+decodedToken)
                 // console.log("name"+name)
-                // console.log("identity"+identity)
+                console.log("jti identity"+identity)
 
                 if (identity) {
                     setIdentity(identity);

@@ -10,6 +10,7 @@ import { useChatSidebar } from "@/store/use-chat-sidebar";
 import { cn } from "@/lib/utils";
 import { Chat } from "./chat";
 import { Header } from "./header";
+import { InfoCard } from "./info-card";
 
 interface StreamPlayerProps {
     user: User & { stream: Stream | null };
@@ -33,9 +34,9 @@ export const StreamPlayer = ({ user, stream, isFollowing }: StreamPlayerProps) =
     if (!token || !name) {
         return (
             <div className="flex justify-center items-center h-screen ">
-            not allowed to watch the stream
-          </div>
-          
+                not allowed to watch the stream
+            </div>
+
         );
     }
 
@@ -58,7 +59,16 @@ export const StreamPlayer = ({ user, stream, isFollowing }: StreamPlayerProps) =
                     isFollowing={isFollowing}
                     name={stream.name}
                 />
-            </div>  
+
+                {/* info card */}
+                <InfoCard
+                    hostIdentity={user.id}
+                    viewerIdentity={identity}
+                    name={stream.name}
+                    thumbnailUrl={""}
+                />
+
+            </div>
 
             <div
                 className={cn(
